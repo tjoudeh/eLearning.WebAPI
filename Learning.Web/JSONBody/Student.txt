@@ -1,0 +1,13 @@
+﻿{
+    "email": "Ohoud.Fairs@yahoo.com",
+    "username": "OhoudFaris",
+    "password": "RXWKASDG",
+    "firstName": "Ohoud",
+    "lastName":"Faris",
+    "DateOfBirth":"1991-05-14",
+    "RegistrationDate":"2013-09-12",
+    "gender":1
+}
+
+http://localhost:8323/api/students/TaherWaleed
+Authorization: Basic VGFoZXJXYWxlZWQ6TlpJU0RYTFU=

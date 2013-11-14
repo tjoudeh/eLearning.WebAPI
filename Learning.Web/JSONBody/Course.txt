@@ -1,0 +1,11 @@
+﻿{
+    "name": "Learning ASP.NET WebAPI in 10 Hours",
+    "duration": 10,
+    "description": "This 10 hours course which will talk in deep details about ASP.NET WebAPI",
+    "subject": {
+        "id": 6
+    },
+    "tutor": {
+        "id": 2
+    }
+}

@@ -18,8 +18,8 @@ namespace Learning.Web.Controllers
         {
         }
 
-        const int PAGE_SIZE = 10;
-        public IEnumerable<StudentBaseModel> Get(int courseId, int page = 0)
+
+        public IEnumerable<StudentBaseModel> Get(int courseId, int page = 0, int pageSize = 10)
         {
             IQueryable<Student> query;
 
@@ -30,8 +30,8 @@ namespace Learning.Web.Controllers
             System.Web.HttpContext.Current.Response.Headers.Add("X-InlineCount", totalCount.ToString());
 
             var results = query
-                        .Skip(PAGE_SIZE * page)
-                        .Take(PAGE_SIZE)
+                        .Skip(pageSize * page)
+                        .Take(pageSize)
                         .ToList()
                         .Select(s => TheModelFactory.CreateSummary(s));
 
@@ -55,7 +55,7 @@ namespace Learning.Web.Controllers
 
                 if (result == 1)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.Created);
                 }
                 else if (result == 2)
                 {

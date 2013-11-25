@@ -13,38 +13,38 @@ namespace Learning.Web.Controllers
 {
     public class CoursesController : BaseApiController
     {
-        const int PAGE_SIZE = 10;
+        
         public CoursesController(ILearningRepository repo)
             : base(repo)
         {
-        }
+        } 
 
-        public Object Get(int page = 0)
-        { 
-             IQueryable<Course> query;
+        public Object Get(int page = 0, int pageSize = 10)
+        {
+            IQueryable<Course> query;
 
-             query = TheRepository.GetAllCourses().OrderBy(c => c.CourseSubject.Id);
-             var totalCount = query.Count();
-             var totalPages = Math.Ceiling((double)totalCount / PAGE_SIZE);
-            
-             var helper = new UrlHelper(Request);
-             var prevUrl = page > 0 ? helper.Link("Courses", new { page = page - 1 }) : "";
-             var nextUrl = page < totalPages - 1 ? helper.Link("Courses", new { page = page + 1 }) : "";
+            query = TheRepository.GetAllCourses().OrderBy(c => c.CourseSubject.Id);
+            var totalCount = query.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
-              var results = query
-                            .Skip(PAGE_SIZE * page)
-                            .Take(PAGE_SIZE)
-                            .ToList()
-                            .Select(s => TheModelFactory.Create(s));
+            var urlHelper = new UrlHelper(Request);
+            var prevLink = page > 0 ? urlHelper.Link("Courses", new { page = page - 1, pageSize = pageSize }) : "";
+            var nextLink = page < totalPages - 1 ? urlHelper.Link("Courses", new { page = page + 1, pageSize = pageSize }) : "";
 
-              return new
-              {
-                  TotalCount = totalCount,
-                  TotalPage = totalPages,
-                  PrevPageUrl = prevUrl,
-                  NextPageUrl = nextUrl,
-                  Results = results
-              };
+            var results = query
+                          .Skip(pageSize * page)
+                          .Take(pageSize)
+                          .ToList()
+                          .Select(s => TheModelFactory.Create(s));
+
+            return new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PrevPageLink = prevLink,
+                NextPageLink = nextLink,
+                Results = results
+            };
 
         }
 
@@ -78,9 +78,7 @@ namespace Learning.Web.Controllers
 
                 if (entity == null) Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not read subject/tutor from body");
 
-                TheRepository.Insert(entity);
-
-                if (TheRepository.SaveAll())
+                if (TheRepository.Insert(entity) && TheRepository.SaveAll())
                 {
                     return Request.CreateResponse(HttpStatusCode.Created, TheModelFactory.Create(entity));
                 }
@@ -165,5 +163,43 @@ namespace Learning.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        //Delete the below
+
+        //public IEnumerable<CourseModel> Get()
+        //{
+        //    IQueryable<Course> query;
+
+        //    query = TheRepository.GetAllCourses();
+          
+        //    var results = query
+        //                  .ToList()
+        //                  .Select(s => TheModelFactory.Create(s));
+
+        //    return results;
+        //}
+
+        //public HttpResponseMessage GetCourse(int id)
+        //{
+        //    try
+        //    {
+        //        var course = TheRepository.GetCourse(id);
+        //        if (course != null)
+        //        {
+        //            return Request.CreateResponse(HttpStatusCode.OK, TheModelFactory.Create(course));
+        //        }
+        //        else
+        //        {
+        //            return Request.CreateResponse(HttpStatusCode.NotFound);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+        //    }
+        //}
+
+        //End delete the below
     }
 }

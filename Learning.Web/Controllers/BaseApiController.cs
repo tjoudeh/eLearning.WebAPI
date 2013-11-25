@@ -23,7 +23,6 @@ namespace Learning.Web.Controllers
         {
             get
             {
-
                 if (_modelFactory == null)
                 {
                     _modelFactory = new ModelFactory(Request, TheRepository);

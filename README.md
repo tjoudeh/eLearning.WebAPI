@@ -1,1 +1,1 @@
-Simple Learning Management System which will be built using angular and Web API
+Simple API for eLearning System which is built using ASP.Net Web API

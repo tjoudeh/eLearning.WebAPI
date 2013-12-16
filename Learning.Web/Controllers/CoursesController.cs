@@ -11,6 +11,7 @@ using System.Web.Http.Routing;
 
 namespace Learning.Web.Controllers
 {
+    [Learning.Web.Filters.ForceHttps()]
     public class CoursesController : BaseApiController
     {
         
@@ -68,7 +69,7 @@ namespace Learning.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-
+        [Learning.Web.Filters.ForceHttps()]
         public HttpResponseMessage Post([FromBody] CourseModel courseModel)
         {
             try

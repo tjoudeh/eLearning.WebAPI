@@ -24,11 +24,11 @@ namespace Learning.Web.Controllers
             IQueryable<Student> query;
 
             query = TheRepository.GetEnrolledStudentsInCourse(courseId).OrderBy(s => s.LastName);
-
+            
             var totalCount = query.Count();
 
             System.Web.HttpContext.Current.Response.Headers.Add("X-InlineCount", totalCount.ToString());
-
+            
             var results = query
                         .Skip(pageSize * page)
                         .Take(pageSize)

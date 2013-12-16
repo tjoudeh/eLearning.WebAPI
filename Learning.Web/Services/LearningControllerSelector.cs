@@ -20,60 +20,55 @@ namespace Learning.Web.Services
 
         public override HttpControllerDescriptor SelectController(HttpRequestMessage request)
         {
-           var controllers =  GetControllerMapping(); //Will ignore any controls in same name even if they are in different namepsace
+            var controllers = GetControllerMapping(); //Will ignore any controls in same name even if they are in different namepsace
 
-           var routeData = request.GetRouteData();
+            var routeData = request.GetRouteData();
 
-           var controllerName = routeData.Values["controller"].ToString();
+            var controllerName = routeData.Values["controller"].ToString();
 
-           HttpControllerDescriptor descriptor;
+            HttpControllerDescriptor controllerDescriptor;
 
-           if (controllers.TryGetValue(controllerName, out descriptor))
-           {
+            if (controllers.TryGetValue(controllerName, out controllerDescriptor))
+            {
 
-               //var version = GetVersionFromQueryString(request);
-               //var version = GetVersionFromHeader(request);
-               var version = GetVersionFromAcceptHeaderVersion(request);
+                //var version = GetVersionFromQueryString(request);
+                //var version = GetVersionFromHeader(request);
+                var version = GetVersionFromAcceptHeaderVersion(request);
 
-               var newName = string.Concat(controllerName, "V", version);
+                var versionedControllerName = string.Concat(controllerName, "V", version);
 
-               HttpControllerDescriptor versionDescriptor;
-               if (controllers.TryGetValue(newName, out versionDescriptor))
-               {
-                   return versionDescriptor;
-               }
+                HttpControllerDescriptor versionedControllerDescriptor;
+                if (controllers.TryGetValue(versionedControllerName, out versionedControllerDescriptor))
+                {
+                    return versionedControllerDescriptor;
+                }
 
-               return descriptor;
-           }
+                return controllerDescriptor;
+            }
 
-           return null;
-            
+            return null;
+
         }
 
         private string GetVersionFromAcceptHeaderVersion(HttpRequestMessage request)
         {
-            var accept = request.Headers.Accept;
+            var acceptHeader = request.Headers.Accept;
 
-            foreach (var mime in accept)
+            foreach (var mime in acceptHeader)
             {
                 if (mime.MediaType == "application/json")
                 {
-                    var value = mime.Parameters
+                    var version = mime.Parameters
                                     .Where(v => v.Name.Equals("version", StringComparison.OrdinalIgnoreCase))
                                     .FirstOrDefault();
 
-                    if (value != null)
+                    if (version != null)
                     {
-                        return value.Value;
+                        return version.Value;
                     }
-                    else
-                    {
-                        return "1";
-                    }
-                    
+                    return "1";
                 }
             }
-
             return "1";
         }
 
@@ -83,9 +78,10 @@ namespace Learning.Web.Services
 
             if (request.Headers.Contains(HEADER_NAME))
             {
-                var header = request.Headers.GetValues(HEADER_NAME).FirstOrDefault();
-                if (header != null) {
-                    return header;
+                var versionHeader = request.Headers.GetValues(HEADER_NAME).FirstOrDefault();
+                if (versionHeader != null)
+                {
+                    return versionHeader;
                 }
             }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CacheCow.Server.EntityTagStore.SqlServer</name>
+    </assembly>
+    <members>
+        <member name="T:CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore">
+            <summary>
+            Implements IEntityTagStore for SQL Server 2000 and above
+            
+            Relies on a table and 4 store procedures (in scripts folder)
+            
+            Uses plain ADO.NET. Not worth baking dependency for the sake of 5 calls.
+            </summary>
+        </member>
+        <member name="M:CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore.GetStoredProcedureName(System.String)">
+            <summary>Prefixes a stored procedure name with the configured database schema name.</summary>
+            <param name="procedure">The stored procedure name to format.</param>
+        </member>
+    </members>
+</doc>

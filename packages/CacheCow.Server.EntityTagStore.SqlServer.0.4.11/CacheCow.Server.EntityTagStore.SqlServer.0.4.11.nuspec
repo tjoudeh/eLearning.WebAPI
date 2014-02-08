@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>CacheCow.Server.EntityTagStore.SqlServer</id>
+    <version>0.4.11</version>
+    <title>CacheCow.Server.EntityTagStore.SqlServer</title>
+    <authors>Ali Kheyrollahi</authors>
+    <owners>Ali Kheyrollahi</owners>
+    <projectUrl>https://github.com/aliostad/CacheCow</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SqlServer integration library for CacheCow EntityTagStore</description>
+    <copyright>Copyright 2012</copyright>
+    <tags>aspnetwebapi http caching webapi cachecow sqlserver etag</tags>
+    <dependencies>
+      <dependency id="CacheCow.Server" version="0.4.11" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="4.0.20710.0" />
+    </dependencies>
+  </metadata>
+</package>

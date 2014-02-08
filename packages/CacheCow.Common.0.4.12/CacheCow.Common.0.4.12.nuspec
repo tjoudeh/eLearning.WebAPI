@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>CacheCow.Common</id>
+    <version>0.4.12</version>
+    <title>CacheCow.Common</title>
+    <authors>Ali Kheyrollahi</authors>
+    <owners>Ali Kheyrollahi</owners>
+    <projectUrl>https://github.com/aliostad/CacheCow</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Common library for CacheCow project</description>
+    <copyright>Copyright 2012</copyright>
+    <tags>aspnetwebapi http caching webapi cachecow</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="4.0.30506" />
+    </dependencies>
+  </metadata>
+</package>

@@ -43,15 +43,25 @@ namespace Learning.Data
                     .AsQueryable();
         }
 
-        public Course GetCourse(int courseId)
+        public Course GetCourse(int courseId, bool includeEnrollments = true)
         {
-            return _ctx.Courses
-                     .Include("Enrollments")
-                    .Include("CourseSubject")
-                    .Include("CourseTutor")
-                    .Where(c => c.Id == courseId)
-                    .SingleOrDefault();
 
+            if (includeEnrollments)
+            {
+                return _ctx.Courses
+                    .Include("Enrollments")
+                   .Include("CourseSubject")
+                   .Include("CourseTutor")
+                   .Where(c => c.Id == courseId)
+                   .SingleOrDefault();
+            }
+            else {
+                return _ctx.Courses
+                       .Include("CourseSubject")
+                       .Include("CourseTutor")
+                       .Where(c => c.Id == courseId)
+                       .SingleOrDefault();
+            }
         }
 
         public bool CourseExists(int courseId)
@@ -221,7 +231,7 @@ namespace Learning.Data
             //To update child entites in Course entity
             originalCourse.CourseSubject = updatedCourse.CourseSubject;
             originalCourse.CourseTutor = updatedCourse.CourseTutor;
-
+            
             return true;
         }
 

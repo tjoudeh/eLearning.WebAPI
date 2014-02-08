@@ -15,7 +15,7 @@ namespace Learning.Data
         IQueryable<Course> GetCoursesBySubject(int subjectId);
         
         IQueryable<Course> GetAllCourses();
-        Course GetCourse(int courseId);
+        Course GetCourse(int courseId, bool includeEnrollments = true);
         bool CourseExists(int courseId);
 
         IQueryable<Student> GetAllStudentsWithEnrollments();

@@ -54,6 +54,14 @@ namespace Learning.Web
             //Replace the controller configuration selector
             config.Services.Replace(typeof(IHttpControllerSelector), new LearningControllerSelector((config)));
 
+            //Configure HTTP Caching using Entity Tags (ETags)
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["eLearningConnection"].ConnectionString;
+            var eTagStore =  new CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore(connString);
+            var cacheCowCacheHandler = new CacheCow.Server.CachingHandler(eTagStore);
+            cacheCowCacheHandler.AddLastModifiedHeader = false;
+            config.MessageHandlers.Add(cacheCowCacheHandler);
+
+
 #if !DEBUG
             //force HTTPs
             config.Filters.Add(new ForceHttpsAttribute());

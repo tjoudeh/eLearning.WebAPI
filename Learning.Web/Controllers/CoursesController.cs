@@ -11,7 +11,7 @@ using System.Web.Http.Routing;
 
 namespace Learning.Web.Controllers
 {
-    [Learning.Web.Filters.ForceHttps()]
+ 
     public class CoursesController : BaseApiController
     {
         
@@ -106,7 +106,7 @@ namespace Learning.Web.Controllers
 
                 if (updatedCourse == null) Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not read subject/tutor from body");
                 
-                var originalCourse = TheRepository.GetCourse(id);
+                var originalCourse = TheRepository.GetCourse(id,false);
 
                 if (originalCourse == null || originalCourse.Id != id)
                 {
@@ -127,8 +127,27 @@ namespace Learning.Web.Controllers
                 }
 
             }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbex)
+            {
+                string line ="";
+                foreach (var eve in dbex.EntityValidationErrors)
+                {
+                    line = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        line = string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+
+                    }
+                }
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, line);
+
+            }
             catch (Exception ex)
             {
+
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }

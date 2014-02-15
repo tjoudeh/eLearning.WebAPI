@@ -18,7 +18,7 @@ namespace Learning.Web.Controllers
         public CoursesController(ILearningRepository repo)
             : base(repo)
         {
-        } 
+        }
 
         public Object Get(int page = 0, int pageSize = 10)
         {
@@ -69,6 +69,8 @@ namespace Learning.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+
         [Learning.Web.Filters.ForceHttps()]
         public HttpResponseMessage Post([FromBody] CourseModel courseModel)
         {
@@ -125,24 +127,6 @@ namespace Learning.Web.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-
-            }
-            catch (System.Data.Entity.Validation.DbEntityValidationException dbex)
-            {
-                string line ="";
-                foreach (var eve in dbex.EntityValidationErrors)
-                {
-                    line = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        line = string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-
-                    }
-                }
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, line);
 
             }
             catch (Exception ex)

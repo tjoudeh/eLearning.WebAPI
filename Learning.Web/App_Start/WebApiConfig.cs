@@ -15,18 +15,18 @@ namespace Learning.Web
         public static void Register(HttpConfiguration config)
         {
             /***Uncomment the Routes Students & Students2 to allow versioning withing URLs***/
-           
-           // config.Routes.MapHttpRoute(
-           //   name: "Students",
-           //   routeTemplate: "api/v1/students/{userName}",
-           //   defaults: new { controller = "students", userName = RouteParameter.Optional }
-           //);
 
-           // config.Routes.MapHttpRoute(
-           //    name: "Students2",
-           //    routeTemplate: "api/v2/students/{userName}",
-           //    defaults: new { controller = "studentsV2", userName = RouteParameter.Optional }
-           //);
+            // config.Routes.MapHttpRoute(
+            //   name: "Students",
+            //   routeTemplate: "api/v1/students/{userName}",
+            //   defaults: new { controller = "students", userName = RouteParameter.Optional }
+            //);
+
+            // config.Routes.MapHttpRoute(
+            //    name: "Students2",
+            //    routeTemplate: "api/v2/students/{userName}",
+            //    defaults: new { controller = "studentsV2", userName = RouteParameter.Optional }
+            //);
 
             /***--------------------------------------------------------------------------***/
 
@@ -54,12 +54,16 @@ namespace Learning.Web
             //Replace the controller configuration selector
             config.Services.Replace(typeof(IHttpControllerSelector), new LearningControllerSelector((config)));
 
-            //Configure HTTP Caching using Entity Tags (ETags)
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["eLearningConnection"].ConnectionString;
-            var eTagStore =  new CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore(connString);
-            var cacheCowCacheHandler = new CacheCow.Server.CachingHandler(eTagStore);
-            cacheCowCacheHandler.AddLastModifiedHeader = false;
-            config.MessageHandlers.Add(cacheCowCacheHandler);
+            /*To configure HTTP Caching using Entity Tags (ETags):
+            Please Uncomment the below code to active using CacheCow. Do not forget to run the SQL script file 
+            found on path {projectpath}\packages\CacheCow.Server.EntityTagStore.SqlServer.0.4.11\scripts\script.sql
+            which contains SQL script needed by cache cow to run correctlly. */
+
+            //var connString = System.Configuration.ConfigurationManager.ConnectionStrings["eLearningConnection"].ConnectionString;
+            //var eTagStore = new CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore(connString);
+            //var cacheCowCacheHandler = new CacheCow.Server.CachingHandler(eTagStore);
+            //cacheCowCacheHandler.AddLastModifiedHeader = false;
+            //config.MessageHandlers.Add(cacheCowCacheHandler);
 
 
 #if !DEBUG

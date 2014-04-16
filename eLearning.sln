@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.Web", "Learning.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eLearning.WebAPI2", "eLearning.WebAPI2\eLearning.WebAPI2.csproj", "{62121357-D35C-4B1B-83CD-BA27277D49E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.ODataService", "Learning.ODataService\Learning.ODataService.csproj", "{C467EDF4-4B9D-4AE4-B70D-67D53CDD5917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{62121357-D35C-4B1B-83CD-BA27277D49E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62121357-D35C-4B1B-83CD-BA27277D49E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62121357-D35C-4B1B-83CD-BA27277D49E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C467EDF4-4B9D-4AE4-B70D-67D53CDD5917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C467EDF4-4B9D-4AE4-B70D-67D53CDD5917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C467EDF4-4B9D-4AE4-B70D-67D53CDD5917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C467EDF4-4B9D-4AE4-B70D-67D53CDD5917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

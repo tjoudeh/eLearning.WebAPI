@@ -17,7 +17,7 @@ namespace eLearning.WebAPI2
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-           //Add support for CORS
+           //Support for CORS
             EnableCorsAttribute CorsAttribute = new EnableCorsAttribute("*", "*", "GET,POST");
             config.EnableCors(CorsAttribute);
         }

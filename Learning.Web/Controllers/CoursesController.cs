@@ -79,7 +79,7 @@ namespace Learning.Web.Controllers
 
                 var entity = TheModelFactory.Parse(courseModel);
 
-                if (entity == null) Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not read subject/tutor from body");
+                if (entity == null) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not read subject/tutor from body");
 
                 if (TheRepository.Insert(entity) && TheRepository.SaveAll())
                 {
